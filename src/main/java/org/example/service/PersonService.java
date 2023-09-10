@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import netscape.javascript.JSObject;
 import okhttp3.*;
 import org.example.entity.Person;
+import org.json.JSONObject;
 import sun.rmi.server.UnicastRef;
 
 import java.io.IOException;
@@ -53,6 +54,8 @@ public class PersonService {
         String responseBody = response.body().string();
         System.out.println(responseBody);
 
+        JSONObject jsonObject = new JSONObject(responseBody);
+        responseBody = jsonObject.getString("name");
 
         Person person = new Person();
         person.setUserName(responseBody);
