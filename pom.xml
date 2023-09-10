@@ -16,6 +16,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.1</version> <!-- Уточните актуальную версию на момент вашей работы -->
+        </dependency>
+
+        <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version> <!-- Уточните актуальную версию на момент вашей работы -->
@@ -24,10 +30,37 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version> <!-- Уточните актуальную версию -->
+            <version>1.18.28</version> <!-- Уточните актуальную версию -->
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    <build>
+        <!-- Other build configurations -->
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version> <!-- Use the latest version -->
+                <configuration>
+                    <!-- Other compiler configurations -->
+
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.28</version> <!-- Use the desired version -->
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+
+
 
 
 </project>

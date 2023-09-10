@@ -1,8 +1,13 @@
 package org.example.service;
 
 import com.github.javafaker.Faker;
+import lombok.SneakyThrows;
+import netscape.javascript.JSObject;
+import okhttp3.*;
 import org.example.entity.Person;
+import sun.rmi.server.UnicastRef;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,14 +31,39 @@ public class PersonService {
         }
         return persons;
     }
+
     public List<Person> getFilteredFakePersonsOnSalary(List<Person> persons, long minSalary) {
         List<Person> filteredPersons = new ArrayList<>();
-        for (Person person: persons){
-            if (person.getSalary() > minSalary){
+        for (Person person : persons) {
+            if (person.getSalary() > minSalary) {
                 filteredPersons.add(person);
             }
         }
         return filteredPersons;
     }
+    @SneakyThrows
+    public List<Person> getPersonsFromApi() throws IOException {
 
-}
+        Request request = new Request.Builder()
+                .url("https://randomuser.me/api/")
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+        Response response = client.newCall(request).execute();
+        String responseBody = response.body().string();
+        System.out.println(responseBody);
+
+
+        Person person = new Person();
+        person.setUserName(responseBody);
+        System.out.println(person);
+
+        return null;
+        }
+    }
+
+
+
+
+
+
