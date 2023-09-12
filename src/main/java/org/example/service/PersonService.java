@@ -2,16 +2,11 @@ package org.example.service;
 
 import com.github.javafaker.Faker;
 import lombok.SneakyThrows;
-import netscape.javascript.JSObject;
 import okhttp3.*;
 import org.example.entity.Person;
 import org.json.JSONObject;
-import sun.rmi.server.UnicastRef;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.random.RandomGenerator;
 
 public class PersonService {
@@ -42,28 +37,40 @@ public class PersonService {
         }
         return filteredPersons;
     }
+
     @SneakyThrows
-    public List<Person> getPersonsFromApi() throws IOException {
+    public List<Person> getPersonsFromApi() {
+        List<Person> persons = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Request request = new Request.Builder()
+                    .url("https://randomuser.me/api/")
+                    .build();
 
-        Request request = new Request.Builder()
-                .url("https://randomuser.me/api/")
-                .build();
+            OkHttpClient client = new OkHttpClient();
+            Response response = client.newCall(request).execute();
+            String responseBody = response.body().string();
+            System.out.println(responseBody);
 
-        OkHttpClient client = new OkHttpClient();
-        Response response = client.newCall(request).execute();
-        String responseBody = response.body().string();
-        System.out.println(responseBody);
-
-        JSONObject jsonObject = new JSONObject(responseBody);
-        responseBody = jsonObject.getString("name");
-
-        Person person = new Person();
-        person.setUserName(responseBody);
-        System.out.println(person);
-
-        return null;
+            JSONObject jsonObject = new JSONObject(responseBody);
+            String userName = jsonObject
+                    .getJSONArray("results")
+                    .getJSONObject(0)
+                    .getJSONObject("name")
+                    .getString("last");
+            String userLogin = jsonObject
+                    .getJSONArray("results")
+                    .getJSONObject(0)
+                    .getJSONObject("login")
+                    .getString("username");
+            Person person = new Person();
+            person.setUserName(userName);
+            person.setUserLogin(userLogin);
+            person.setSalary(RandomGenerator.getDefault().nextLong());
+            persons.add(person);
         }
+        return persons;
     }
+}
 
 
 

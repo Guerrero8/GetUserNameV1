@@ -12,18 +12,24 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         Person person = new Person();
-        person.setUserName(scanner.nextLine());
-        person.setUserLogin(scanner.nextLine());
+       /** person.setUserName(scanner.nextLine());
+        person.setUserLogin(scanner.nextLine()); **/
         System.out.println(person);
         PersonService personService = new PersonService();
         List<Person> people = personService.generateFakePersons();
+
         List<Person> filteredFakePersonsOnSalary = personService.getFilteredFakePersonsOnSalary(people, 10000000);
         int counter = 1;
         for (Person filteredPerson: filteredFakePersonsOnSalary) {
             System.out.println(counter + " " + filteredPerson + "\n");
             counter++;
         }
-        personService.getPersonsFromApi();
 
+        List<Person> personsFromApi = personService.getPersonsFromApi();
+        int counter2 = 1;
+        for (Person personFromApi : personsFromApi) {
+            System.out.println(counter2 + " " + personFromApi + "\n");
+            counter2++;
+        }
     }
 }
