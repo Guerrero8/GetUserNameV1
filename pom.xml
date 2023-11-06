@@ -18,7 +18,19 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>4.9.1</version> <!-- Уточните актуальную версию на момент вашей работы -->
+            <version>4.9.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version>
         </dependency>
 
 
@@ -32,18 +44,17 @@
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
-            <version>1.0.2</version> <!-- Уточните актуальную версию на момент вашей работы -->
+            <version>1.0.2</version>
         </dependency>
-        <!-- Другие зависимости -->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.28</version> <!-- Уточните актуальную версию -->
+            <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
-        <!-- Other build configurations -->
 
         <plugins>
             <plugin>
@@ -51,17 +62,26 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version> <!-- Use the latest version -->
                 <configuration>
-                    <!-- Other compiler configurations -->
 
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.28</version> <!-- Use the desired version -->
+                            <version>1.18.28</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.8.0</version>
+                <configuration>
+                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

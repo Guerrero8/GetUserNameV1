@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: guererro64
+      changes:
+        - createTable:
+            tableName: persons
+            columns:
+              - column:
+                  name: user_name
+                  type: VARCHAR(255)
+              - column:
+                  name: user_login
+                  type: VARCHAR(255)
+              - column:
+                  name: salary
+                  type: VARCHAR(225)
